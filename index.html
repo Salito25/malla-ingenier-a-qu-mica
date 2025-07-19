@@ -1,100 +1,130 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>Malla Ingeniería Química</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #f4f4f4; padding: 20px; }
-    .semestre { margin-bottom: 30px; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-    .semestre h2 { color: #2c3e50; }
-    .materia { margin: 8px 0; padding: 10px; background: #ecf0f1; border-left: 5px solid #3498db; cursor: pointer; border-radius: 5px; }
-    .info { margin-top: 10px; font-size: 14px; color: #555; }
+    body {
+      background-color: #ffe6f0;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .semestre {
+      background-color: white;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .semestre h2 {
+      margin-top: 0;
+    }
+
+    .materia {
+      margin: 5px 0;
+    }
+
+    label {
+      color: black;
+    }
+
+    input:disabled + label {
+      color: #aaa;
+    }
   </style>
 </head>
 <body>
-  <h1>Malla Curricular - Ingeniería Química</h1>
+  <h1>Malla Curricular Ingeniería Química</h1>
 
-  <div class="semestre">
-    <h2>1er Semestre</h2>
-    <div class="materia" data-info="4 créditos - Sin prerrequisitos">Cálculo diferencial</div>
-    <div class="materia" data-info="4 créditos - Sin prerrequisitos">Geometría vectorial y analítica</div>
-    <div class="materia" data-info="2 créditos - Sin prerrequisitos">Introducción a la ingeniería química</div>
-    <div class="materia" data-info="3 créditos - Sin prerrequisitos">Química general</div>
-  </div>
-
-  <div class="semestre">
-    <h2>2do Semestre</h2>
-    <div class="materia" data-info="4 créditos - Prerrequisito: Cálculo diferencial">Cálculo integral</div>
-    <div class="materia" data-info="4 créditos - Prerrequisito: Geometría vectorial y analítica">Álgebra lineal</div>
-    <div class="materia" data-info="4 créditos - Prerrequisitos: Cálculo diferencial y Geometría vectorial y analítica">Física mecánica</div>
-    <div class="materia" data-info="3 créditos - Prerrequisito: Química general">Química analítica</div>
-    <div class="materia" data-info="3 créditos">Química orgánica</div>
-  </div>
-
-  <div class="semestre">
-    <h2>3er Semestre</h2>
-    <div class="materia" data-info="4 créditos - Prerrequisito: Cálculo integral">Cálculo en varias variables</div>
-    <div class="materia" data-info="4 créditos - Prerrequisitos: Cálculo integral y Álgebra lineal">Ecuaciones diferenciales</div>
-    <div class="materia" data-info="3 créditos - Prerrequisito: Física mecánica">Termodinámica general</div>
-    <div class="materia" data-info="2 créditos">Optativa de laboratorio de química</div>
-    <div class="materia" data-info="3 créditos - Prerrequisito: Introducción a la ingeniería química">Fundamentos de proyecto en ingeniería</div>
-  </div>
-
-  <div class="semestre">
-    <h2>4to Semestre</h2>
-    <div class="materia" data-info="3 créditos - Prerrequisito: Cálculo integral">Estadística 1</div>
-    <div class="materia" data-info="3 créditos - Prerrequisitos: Cálculo integral y Física mecánica">Física de electricidad y magnetismo</div>
-    <div class="materia" data-info="3 créditos - Prerrequisito: Álgebra lineal">Fundamentos de programación</div>
-    <div class="materia" data-info="4 créditos - Prerrequisito: Termodinámica general">Balances de materia y energía</div>
-  </div>
-
-  <div class="semestre">
-    <h2>5to Semestre</h2>
-    <div class="materia" data-info="4 créditos - Prerrequisito: Cálculo diferencial">Matemáticas discretas</div>
-    <div class="materia" data-info="3 créditos - Prerrequisito: Química general">Ciencias de los materiales</div>
-    <div class="materia" data-info="3 créditos - Prerrequisito: Química orgánica">Fundamentos de biotecnología</div>
-    <div class="materia" data-info="3 créditos - Prerrequisito: Ecuaciones diferenciales">Introducción al control de procesos</div>
-    <div class="materia" data-info="3 créditos - Prerrequisitos: Ecuaciones diferenciales y Termodinámica general">Fenómenos de transporte</div>
-  </div>
-
-  <div class="semestre">
-    <h2>6to Semestre</h2>
-    <div class="materia" data-info="4 créditos - Prerrequisitos: Ecuaciones diferenciales y Física de electricidad y magnetismo">Física de oscilaciones, ondas y óptica</div>
-    <div class="materia" data-info="3 créditos - Prerrequisito: Termodinámica general">Termodinámica del equilibrio de fases para sistemas multicomponentes</div>
-    <div class="materia" data-info="3 créditos">Operaciones de transferencia de cantidad de movimiento</div>
-    <div class="materia" data-info="3 créditos">Operaciones de transferencia de calor</div>
-  </div>
-
-  <div class="semestre">
-    <h2>7mo Semestre</h2>
-    <div class="materia" data-info="3 créditos">Optativa disciplinar</div>
-    <div class="materia" data-info="3 créditos - Prerrequisito: Termodinámica general">Equilibrios en sistemas reactivos y fenómenos de superficie</div>
-    <div class="materia" data-info="4 créditos">Operaciones de transferencia de masa</div>
-    <div class="materia" data-info="3 créditos - Prerrequisito: Fundamentos de proyecto en ingeniería">Estructura y evaluación de proyectos de ingeniería</div>
-  </div>
-
-  <div class="semestre">
-    <h2>8vo Semestre</h2>
-    <div class="materia" data-info="3 créditos - Prerrequisito: Introducción a la ingeniería química">Teoría administrativa y organizacional</div>
-    <div class="materia" data-info="3 créditos">Optativa disciplinar</div>
-    <div class="materia" data-info="2 créditos - Prerrequisitos: Termodinámica del equilibrio de fases para sistemas multicomponentes y Equilibrios en sistemas reactivos y fenómenos de superficie">Laboratorio 1 de ingeniería química termodinámica</div>
-    <div class="materia" data-info="4 créditos">Ingeniería de los reactores químicos</div>
-  </div>
-
-  <div class="semestre">
-    <h2>9no Semestre</h2>
-    <div class="materia" data-info="3 créditos">Optativa disciplinar</div>
-    <div class="materia" data-info="4 créditos">Laboratorio 2 de ingeniería química, operaciones de transferencia y control de procesos</div>
-    <div class="materia" data-info="4 créditos - Prerrequisito: Ingeniería de los reactores químicos">Ingeniería de procesos</div>
-    <div class="materia" data-info="4 créditos - Prerrequisito: Estructura y evaluación de proyectos de ingeniería">Proyecto integrado de ingeniería</div>
-  </div>
+  <div id="contenedor"></div>
 
   <script>
-    const materias = document.querySelectorAll('.materia');
-    materias.forEach(m => {
-      m.addEventListener('click', () => {
-        alert(m.dataset.info);
+    const materias = [
+      { nombre: "Cálculo diferencial", id: "calculo_dif", creditos: 4, prerrequisitos: [] },
+      { nombre: "Geometría vectorial y analítica", id: "geometria", creditos: 4, prerrequisitos: [] },
+      { nombre: "Introducción a la ingeniería química", id: "intro_iq", creditos: 2, prerrequisitos: [] },
+      { nombre: "Química general", id: "quimica_gen", creditos: 3, prerrequisitos: [] },
+
+      { nombre: "Cálculo integral", id: "calculo_int", creditos: 4, prerrequisitos: ["calculo_dif"] },
+      { nombre: "Álgebra lineal", id: "algebra", creditos: 4, prerrequisitos: ["geometria"] },
+      { nombre: "Física mecánica", id: "fisica_mec", creditos: 4, prerrequisitos: ["calculo_dif", "geometria"] },
+      { nombre: "Química analítica", id: "quimica_ana", creditos: 3, prerrequisitos: ["quimica_gen"] },
+      { nombre: "Química orgánica", id: "quimica_org", creditos: 3, prerrequisitos: [] },
+
+      { nombre: "Cálculo en varias variables", id: "calculo_var", creditos: 4, prerrequisitos: ["calculo_int"] },
+      { nombre: "Ecuaciones diferenciales", id: "ecuaciones", creditos: 4, prerrequisitos: ["calculo_int", "algebra"] },
+      { nombre: "Termodinámica general", id: "termo_gen", creditos: 3, prerrequisitos: ["fisica_mec"] },
+      { nombre: "Optativa de laboratorio de química", id: "opt_labq", creditos: 2, prerrequisitos: [] },
+      { nombre: "Fundamentos de proyecto en ingeniería", id: "fund_proy", creditos: 3, prerrequisitos: ["intro_iq"] },
+
+      { nombre: "Estadística 1", id: "estad1", creditos: 3, prerrequisitos: ["calculo_int"] },
+      { nombre: "Física de electricidad y magnetismo", id: "fisica_em", creditos: 3, prerrequisitos: ["calculo_int", "fisica_mec"] },
+      { nombre: "Fundamentos de programación", id: "prog", creditos: 3, prerrequisitos: ["algebra"] },
+      { nombre: "Balances de materia y energía", id: "balances", creditos: 4, prerrequisitos: ["termo_gen"] },
+
+      { nombre: "Matemáticas discretas", id: "discretas", creditos: 4, prerrequisitos: ["calculo_dif"] },
+      { nombre: "Ciencias de los materiales", id: "materiales", creditos: 3, prerrequisitos: ["quimica_gen"] },
+      { nombre: "Fundamentos de biotecnología", id: "biotec", creditos: 3, prerrequisitos: ["quimica_org"] },
+      { nombre: "Introducción al control de procesos", id: "control", creditos: 3, prerrequisitos: ["ecuaciones"] },
+      { nombre: "Fenómenos de transporte", id: "transporte", creditos: 3, prerrequisitos: ["ecuaciones", "termo_gen"] },
+
+      { nombre: "Física de oscilaciones, ondas y óptica", id: "fisica_ondas", creditos: 4, prerrequisitos: ["ecuaciones", "fisica_em"] },
+      { nombre: "Termodinámica del equilibrio de fases", id: "termo_fases", creditos: 3, prerrequisitos: ["termo_gen"] },
+      { nombre: "Transferencia de cantidad de movimiento", id: "momento", creditos: 3, prerrequisitos: [] },
+      { nombre: "Transferencia de calor", id: "calor", creditos: 3, prerrequisitos: [] },
+
+      { nombre: "Optativa disciplinar 1", id: "optativa1", creditos: 3, prerrequisitos: [] },
+      { nombre: "Equilibrios y fenómenos de superficie", id: "equilibrios", creditos: 3, prerrequisitos: ["termo_gen"] },
+      { nombre: "Transferencia de masa", id: "masa", creditos: 4, prerrequisitos: [] },
+      { nombre: "Estructura y evaluación de proyectos", id: "eval_proy", creditos: 3, prerrequisitos: ["fund_proy"] },
+
+      { nombre: "Teoría administrativa", id: "admin", creditos: 3, prerrequisitos: ["intro_iq"] },
+      { nombre: "Optativa disciplinar 2", id: "optativa2", creditos: 3, prerrequisitos: [] },
+      { nombre: "Laboratorio 1 IQ", id: "lab1", creditos: 2, prerrequisitos: ["termo_fases", "equilibrios"] },
+      { nombre: "Ingeniería de reactores químicos", id: "reactores", creditos: 4, prerrequisitos: [] },
+
+      { nombre: "Optativa disciplinar 3", id: "optativa3", creditos: 3, prerrequisitos: [] },
+      { nombre: "Laboratorio 2 IQ", id: "lab2", creditos: 4, prerrequisitos: [] },
+      { nombre: "Ingeniería de procesos", id: "procesos", creditos: 4, prerrequisitos: ["reactores"] },
+      { nombre: "Proyecto integrado de ingeniería", id: "proy_integrado", creditos: 4, prerrequisitos: ["eval_proy"] },
+    ];
+
+    const contenedor = document.getElementById("contenedor");
+
+    materias.forEach((m, i) => {
+      if (i % 4 === 0) {
+        var div = document.createElement("div");
+        div.className = "semestre";
+        div.innerHTML = `<h2>${Math.floor(i / 4) + 1}° semestre</h2>`;
+        contenedor.appendChild(div);
+      }
+      const parent = contenedor.lastElementChild;
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.id = m.id;
+      checkbox.disabled = m.prerrequisitos.length > 0;
+      const label = document.createElement("label");
+      label.htmlFor = m.id;
+      label.textContent = `${m.nombre} (${m.creditos} créditos)`;
+      const divMateria = document.createElement("div");
+      divMateria.className = "materia";
+      divMateria.appendChild(checkbox);
+      divMateria.appendChild(label);
+      parent.appendChild(divMateria);
+    });
+
+    document.querySelectorAll("input[type='checkbox']").forEach(c => {
+      c.addEventListener("change", () => {
+        materias.forEach(m => {
+          const check = document.getElementById(m.id);
+          if (!check.checked && m.prerrequisitos.length > 0) {
+            const cumplidos = m.prerrequisitos.every(pid => document.getElementById(pid).checked);
+            document.getElementById(m.id).disabled = !cumplidos;
+          }
+        });
       });
     });
   </script>
