@@ -2,25 +2,101 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Malla Curricular</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Malla Ingeniería Química</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f4f4; padding: 20px; }
+    .semestre { margin-bottom: 30px; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .semestre h2 { color: #2c3e50; }
+    .materia { margin: 8px 0; padding: 10px; background: #ecf0f1; border-left: 5px solid #3498db; cursor: pointer; border-radius: 5px; }
+    .info { margin-top: 10px; font-size: 14px; color: #555; }
+  </style>
 </head>
 <body>
-  <h1>Malla Curricular – Ingeniería</h1>
-  <div class="semestre" id="semestre1">
-    <h2>Semestre 1</h2>
-    <div class="materia" data-info="Cálculo diferencial">Cálculo I</div>
-    <div class="materia" data-info="Introducción a la programación">Programación I</div>
-  </div>
-  <div class="semestre" id="semestre2">
-    <h2>Semestre 2</h2>
-    <div class="materia" data-info="Requiere Cálculo I">Cálculo II</div>
-    <div class="materia" data-info="Requiere Programación I">Estructuras de datos</div>
+  <h1>Malla Curricular - Ingeniería Química</h1>
+
+  <div class="semestre">
+    <h2>1er Semestre</h2>
+    <div class="materia" data-info="4 créditos - Sin prerrequisitos">Cálculo diferencial</div>
+    <div class="materia" data-info="4 créditos - Sin prerrequisitos">Geometría vectorial y analítica</div>
+    <div class="materia" data-info="2 créditos - Sin prerrequisitos">Introducción a la ingeniería química</div>
+    <div class="materia" data-info="3 créditos - Sin prerrequisitos">Química general</div>
   </div>
 
-  <div id="info-box" class="hidden"></div>
+  <div class="semestre">
+    <h2>2do Semestre</h2>
+    <div class="materia" data-info="4 créditos - Prerrequisito: Cálculo diferencial">Cálculo integral</div>
+    <div class="materia" data-info="4 créditos - Prerrequisito: Geometría vectorial y analítica">Álgebra lineal</div>
+    <div class="materia" data-info="4 créditos - Prerrequisitos: Cálculo diferencial y Geometría vectorial y analítica">Física mecánica</div>
+    <div class="materia" data-info="3 créditos - Prerrequisito: Química general">Química analítica</div>
+    <div class="materia" data-info="3 créditos">Química orgánica</div>
+  </div>
 
-  <script src="script.js"></script>
+  <div class="semestre">
+    <h2>3er Semestre</h2>
+    <div class="materia" data-info="4 créditos - Prerrequisito: Cálculo integral">Cálculo en varias variables</div>
+    <div class="materia" data-info="4 créditos - Prerrequisitos: Cálculo integral y Álgebra lineal">Ecuaciones diferenciales</div>
+    <div class="materia" data-info="3 créditos - Prerrequisito: Física mecánica">Termodinámica general</div>
+    <div class="materia" data-info="2 créditos">Optativa de laboratorio de química</div>
+    <div class="materia" data-info="3 créditos - Prerrequisito: Introducción a la ingeniería química">Fundamentos de proyecto en ingeniería</div>
+  </div>
+
+  <div class="semestre">
+    <h2>4to Semestre</h2>
+    <div class="materia" data-info="3 créditos - Prerrequisito: Cálculo integral">Estadística 1</div>
+    <div class="materia" data-info="3 créditos - Prerrequisitos: Cálculo integral y Física mecánica">Física de electricidad y magnetismo</div>
+    <div class="materia" data-info="3 créditos - Prerrequisito: Álgebra lineal">Fundamentos de programación</div>
+    <div class="materia" data-info="4 créditos - Prerrequisito: Termodinámica general">Balances de materia y energía</div>
+  </div>
+
+  <div class="semestre">
+    <h2>5to Semestre</h2>
+    <div class="materia" data-info="4 créditos - Prerrequisito: Cálculo diferencial">Matemáticas discretas</div>
+    <div class="materia" data-info="3 créditos - Prerrequisito: Química general">Ciencias de los materiales</div>
+    <div class="materia" data-info="3 créditos - Prerrequisito: Química orgánica">Fundamentos de biotecnología</div>
+    <div class="materia" data-info="3 créditos - Prerrequisito: Ecuaciones diferenciales">Introducción al control de procesos</div>
+    <div class="materia" data-info="3 créditos - Prerrequisitos: Ecuaciones diferenciales y Termodinámica general">Fenómenos de transporte</div>
+  </div>
+
+  <div class="semestre">
+    <h2>6to Semestre</h2>
+    <div class="materia" data-info="4 créditos - Prerrequisitos: Ecuaciones diferenciales y Física de electricidad y magnetismo">Física de oscilaciones, ondas y óptica</div>
+    <div class="materia" data-info="3 créditos - Prerrequisito: Termodinámica general">Termodinámica del equilibrio de fases para sistemas multicomponentes</div>
+    <div class="materia" data-info="3 créditos">Operaciones de transferencia de cantidad de movimiento</div>
+    <div class="materia" data-info="3 créditos">Operaciones de transferencia de calor</div>
+  </div>
+
+  <div class="semestre">
+    <h2>7mo Semestre</h2>
+    <div class="materia" data-info="3 créditos">Optativa disciplinar</div>
+    <div class="materia" data-info="3 créditos - Prerrequisito: Termodinámica general">Equilibrios en sistemas reactivos y fenómenos de superficie</div>
+    <div class="materia" data-info="4 créditos">Operaciones de transferencia de masa</div>
+    <div class="materia" data-info="3 créditos - Prerrequisito: Fundamentos de proyecto en ingeniería">Estructura y evaluación de proyectos de ingeniería</div>
+  </div>
+
+  <div class="semestre">
+    <h2>8vo Semestre</h2>
+    <div class="materia" data-info="3 créditos - Prerrequisito: Introducción a la ingeniería química">Teoría administrativa y organizacional</div>
+    <div class="materia" data-info="3 créditos">Optativa disciplinar</div>
+    <div class="materia" data-info="2 créditos - Prerrequisitos: Termodinámica del equilibrio de fases para sistemas multicomponentes y Equilibrios en sistemas reactivos y fenómenos de superficie">Laboratorio 1 de ingeniería química termodinámica</div>
+    <div class="materia" data-info="4 créditos">Ingeniería de los reactores químicos</div>
+  </div>
+
+  <div class="semestre">
+    <h2>9no Semestre</h2>
+    <div class="materia" data-info="3 créditos">Optativa disciplinar</div>
+    <div class="materia" data-info="4 créditos">Laboratorio 2 de ingeniería química, operaciones de transferencia y control de procesos</div>
+    <div class="materia" data-info="4 créditos - Prerrequisito: Ingeniería de los reactores químicos">Ingeniería de procesos</div>
+    <div class="materia" data-info="4 créditos - Prerrequisito: Estructura y evaluación de proyectos de ingeniería">Proyecto integrado de ingeniería</div>
+  </div>
+
+  <script>
+    const materias = document.querySelectorAll('.materia');
+    materias.forEach(m => {
+      m.addEventListener('click', () => {
+        alert(m.dataset.info);
+      });
+    });
+  </script>
 </body>
 </html>
