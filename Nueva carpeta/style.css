@@ -1,0 +1,35 @@
+body {
+  font-family: sans-serif;
+  background: #f5f5f5;
+  padding: 2rem;
+}
+
+.semestre {
+  margin-bottom: 2rem;
+}
+
+.materia {
+  display: inline-block;
+  margin: 0.5rem;
+  padding: 1rem;
+  background-color: #dbeafe;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.materia:hover {
+  background-color: #93c5fd;
+}
+
+#info-box {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #fef9c3;
+  border: 1px solid #facc15;
+  border-radius: 5px;
+}
+
+.hidden {
+  display: none;
+}
