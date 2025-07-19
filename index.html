@@ -1,132 +1,211 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Malla Ingeniería Química</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Malla Curricular - Ingeniería Química</title>
   <style>
     body {
-      background-color: #ffe6f0;
-      font-family: sans-serif;
       margin: 0;
-      padding: 20px;
+      font-family: sans-serif;
+      background-color: #ffe6f0;
+      color: #000;
+      transition: background-color 0.3s, color 0.3s;
     }
-
+    .dark-mode {
+      background-color: #1c1c1c;
+      color: #fff;
+    }
+    header {
+      padding: 1rem;
+      text-align: center;
+      background: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .controls {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem;
+    }
+    .semestres {
+      display: flex;
+      flex-direction: row;
+      overflow-x: auto;
+      padding: 1rem;
+      gap: 1rem;
+    }
     .semestre {
-      background-color: white;
-      padding: 15px;
-      margin: 10px 0;
+      background: white;
       border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 1rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      min-width: 220px;
+      transition: transform 0.3s;
     }
-
-    .semestre h2 {
-      margin-top: 0;
+    .semestre:hover {
+      transform: scale(1.02);
     }
-
     .materia {
-      margin: 5px 0;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      margin: 0.5rem 0;
+      border-radius: 8px;
+      background: #f9f9f9;
+      cursor: pointer;
+      transition: background 0.3s;
     }
-
-    label {
-      color: black;
+    .materia:hover {
+      background: #ffd9ec;
     }
-
-    input:disabled + label {
+    .materia.bloqueada {
+      background: #eee;
       color: #aaa;
+      pointer-events: none;
+    }
+    .materia.completada {
+      background: #d4edda;
+    }
+    .info {
+      text-align: center;
+      margin-top: 1rem;
+    }
+    input[type="search"] {
+      padding: 0.5rem;
+      font-size: 1rem;
+    }
+    .toggle-dark {
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      border: none;
+      background: #000;
+      color: #fff;
+      border-radius: 8px;
     }
   </style>
 </head>
 <body>
-  <h1>Malla Curricular Ingeniería Química</h1>
-
-  <div id="contenedor"></div>
-
+  <header>
+    <h1>Malla Curricular - Ingeniería Química</h1>
+  </header>
+  <div class="controls">
+    <input type="search" id="buscador" placeholder="Buscar materia...">
+    <button class="toggle-dark" onclick="toggleModoOscuro()">🌙 Modo Oscuro</button>
+  </div>
+  <div class="info">
+    <p>Créditos acumulados: <span id="creditos">0</span></p>
+    <p>Progreso total: <span id="progreso">0%</span></p>
+  </div>
+  <div class="semestres" id="contenedor">
+    <!-- Las materias se generan aquí -->
+  </div>
   <script>
     const materias = [
-      { nombre: "Cálculo diferencial", id: "calculo_dif", creditos: 4, prerrequisitos: [] },
-      { nombre: "Geometría vectorial y analítica", id: "geometria", creditos: 4, prerrequisitos: [] },
-      { nombre: "Introducción a la ingeniería química", id: "intro_iq", creditos: 2, prerrequisitos: [] },
-      { nombre: "Química general", id: "quimica_gen", creditos: 3, prerrequisitos: [] },
-
-      { nombre: "Cálculo integral", id: "calculo_int", creditos: 4, prerrequisitos: ["calculo_dif"] },
-      { nombre: "Álgebra lineal", id: "algebra", creditos: 4, prerrequisitos: ["geometria"] },
-      { nombre: "Física mecánica", id: "fisica_mec", creditos: 4, prerrequisitos: ["calculo_dif", "geometria"] },
-      { nombre: "Química analítica", id: "quimica_ana", creditos: 3, prerrequisitos: ["quimica_gen"] },
-      { nombre: "Química orgánica", id: "quimica_org", creditos: 3, prerrequisitos: [] },
-
-      { nombre: "Cálculo en varias variables", id: "calculo_var", creditos: 4, prerrequisitos: ["calculo_int"] },
-      { nombre: "Ecuaciones diferenciales", id: "ecuaciones", creditos: 4, prerrequisitos: ["calculo_int", "algebra"] },
-      { nombre: "Termodinámica general", id: "termo_gen", creditos: 3, prerrequisitos: ["fisica_mec"] },
-      { nombre: "Optativa de laboratorio de química", id: "opt_labq", creditos: 2, prerrequisitos: [] },
-      { nombre: "Fundamentos de proyecto en ingeniería", id: "fund_proy", creditos: 3, prerrequisitos: ["intro_iq"] },
-
-      { nombre: "Estadística 1", id: "estad1", creditos: 3, prerrequisitos: ["calculo_int"] },
-      { nombre: "Física de electricidad y magnetismo", id: "fisica_em", creditos: 3, prerrequisitos: ["calculo_int", "fisica_mec"] },
-      { nombre: "Fundamentos de programación", id: "prog", creditos: 3, prerrequisitos: ["algebra"] },
-      { nombre: "Balances de materia y energía", id: "balances", creditos: 4, prerrequisitos: ["termo_gen"] },
-
-      { nombre: "Matemáticas discretas", id: "discretas", creditos: 4, prerrequisitos: ["calculo_dif"] },
-      { nombre: "Ciencias de los materiales", id: "materiales", creditos: 3, prerrequisitos: ["quimica_gen"] },
-      { nombre: "Fundamentos de biotecnología", id: "biotec", creditos: 3, prerrequisitos: ["quimica_org"] },
-      { nombre: "Introducción al control de procesos", id: "control", creditos: 3, prerrequisitos: ["ecuaciones"] },
-      { nombre: "Fenómenos de transporte", id: "transporte", creditos: 3, prerrequisitos: ["ecuaciones", "termo_gen"] },
-
-      { nombre: "Física de oscilaciones, ondas y óptica", id: "fisica_ondas", creditos: 4, prerrequisitos: ["ecuaciones", "fisica_em"] },
-      { nombre: "Termodinámica del equilibrio de fases", id: "termo_fases", creditos: 3, prerrequisitos: ["termo_gen"] },
-      { nombre: "Transferencia de cantidad de movimiento", id: "momento", creditos: 3, prerrequisitos: [] },
-      { nombre: "Transferencia de calor", id: "calor", creditos: 3, prerrequisitos: [] },
-
-      { nombre: "Optativa disciplinar 1", id: "optativa1", creditos: 3, prerrequisitos: [] },
-      { nombre: "Equilibrios y fenómenos de superficie", id: "equilibrios", creditos: 3, prerrequisitos: ["termo_gen"] },
-      { nombre: "Transferencia de masa", id: "masa", creditos: 4, prerrequisitos: [] },
-      { nombre: "Estructura y evaluación de proyectos", id: "eval_proy", creditos: 3, prerrequisitos: ["fund_proy"] },
-
-      { nombre: "Teoría administrativa", id: "admin", creditos: 3, prerrequisitos: ["intro_iq"] },
-      { nombre: "Optativa disciplinar 2", id: "optativa2", creditos: 3, prerrequisitos: [] },
-      { nombre: "Laboratorio 1 IQ", id: "lab1", creditos: 2, prerrequisitos: ["termo_fases", "equilibrios"] },
-      { nombre: "Ingeniería de reactores químicos", id: "reactores", creditos: 4, prerrequisitos: [] },
-
-      { nombre: "Optativa disciplinar 3", id: "optativa3", creditos: 3, prerrequisitos: [] },
-      { nombre: "Laboratorio 2 IQ", id: "lab2", creditos: 4, prerrequisitos: [] },
-      { nombre: "Ingeniería de procesos", id: "procesos", creditos: 4, prerrequisitos: ["reactores"] },
-      { nombre: "Proyecto integrado de ingeniería", id: "proy_integrado", creditos: 4, prerrequisitos: ["eval_proy"] },
+      { nombre: "Calculo diferencial", creditos: 4, semestre: 1 },
+      { nombre: "Geometria vectorial y analítica", creditos: 4, semestre: 1 },
+      { nombre: "Introducción a la ingeniería química", creditos: 2, semestre: 1 },
+      { nombre: "Química general", creditos: 3, semestre: 1 },
+      { nombre: "Calculo integral", creditos: 4, prerrequisitos: ["Calculo diferencial"], semestre: 2 },
+      { nombre: "Algebra lineal", creditos: 4, prerrequisitos: ["Geometria vectorial y analítica"], semestre: 2 },
+      { nombre: "Fisica mecánica", creditos: 4, prerrequisitos: ["Calculo diferencial", "Geometria vectorial y analítica"], semestre: 2 },
+      { nombre: "Química analítica", creditos: 3, prerrequisitos: ["Química general"], semestre: 2 },
+      { nombre: "Química orgánica", creditos: 3, semestre: 2 },
+      { nombre: "Calculo en varias variables", creditos: 4, prerrequisitos: ["Calculo integral"], semestre: 3 },
+      { nombre: "Ecuaciones diferenciales", creditos: 4, prerrequisitos: ["Calculo integral", "Algebra lineal"], semestre: 3 },
+      { nombre: "Termodinámica general", creditos: 3, prerrequisitos: ["Fisica mecánica"], semestre: 3 },
+      { nombre: "Optativa de laboratorio de química", creditos: 2, semestre: 3 },
+      { nombre: "Fundamentos de proyecto en ingeniería", creditos: 3, prerrequisitos: ["Introducción a la ingeniería química"], semestre: 3 },
+      { nombre: "Estadística 1", creditos: 3, prerrequisitos: ["Calculo integral"], semestre: 4 },
+      { nombre: "Física de electricidad y magnetismo", creditos: 3, prerrequisitos: ["Calculo integral", "Fisica mecánica"], semestre: 4 },
+      { nombre: "Fundamentos de programación", creditos: 3, prerrequisitos: ["Algebra lineal"], semestre: 4 },
+      { nombre: "Balances de materia y energía", creditos: 4, prerrequisitos: ["Termodinámica general"], semestre: 4 },
+      { nombre: "Matemáticas discretas", creditos: 4, prerrequisitos: ["Calculo diferencial"], semestre: 5 },
+      { nombre: "Ciencias de los materiales", creditos: 3, prerrequisitos: ["Química general"], semestre: 5 },
+      { nombre: "Fundamentos de biotecnología", creditos: 3, prerrequisitos: ["Química orgánica"], semestre: 5 },
+      { nombre: "introducción al control de procesos", creditos: 3, prerrequisitos: ["Ecuaciones diferenciales"], semestre: 5 },
+      { nombre: "Fenómenos de transporte", creditos: 3, prerrequisitos: ["Ecuaciones diferenciales", "Termodinámica general"], semestre: 5 },
+      { nombre: "Física de oscilaciones, ondas y ópticas", creditos: 4, prerrequisitos: ["Ecuaciones diferenciales", "Física de electricidad y magnetismo"], semestre: 6 },
+      { nombre: "Termodinámica del equilibrio de fases para sistemas multicomponentes", creditos: 3, prerrequisitos: ["Termodinámica general"], semestre: 6 },
+      { nombre: "Operaciones de transferencia de cantidad de movimiento", creditos: 3, semestre: 6 },
+      { nombre: "Operaciones de transferencia de calor", creditos: 3, semestre: 6 },
+      { nombre: "Optativa disciplinar", creditos: 3, semestre: 7 },
+      { nombre: "Equilibrios en sistemas reactivos y fenómenos de superficie", creditos: 3, prerrequisitos: ["Termodinámica general"], semestre: 7 },
+      { nombre: "Operaciones de transferencia de masa", creditos: 4, semestre: 7 },
+      { nombre: "Estructura y evaluación de proyectos de ingeniería", creditos: 3, prerrequisitos: ["Fundamentos de proyecto en ingeniería"], semestre: 7 },
+      { nombre: "Teoría administrativa y organizacional", creditos: 3, prerrequisitos: ["Introducción a la ingeniería química"], semestre: 8 },
+      { nombre: "Optativa disciplinar", creditos: 3, semestre: 8 },
+      { nombre: "Laboratorio 1 de ingeniería química termodinámica", creditos: 2, prerrequisitos: ["Termodinámica del equilibrio de fases para sistemas multicomponentes", "Equilibrios en sistemas reactivos y fenómenos de superficie"], semestre: 8 },
+      { nombre: "Ingeniería de los reactores químicos", creditos: 4, semestre: 8 },
+      { nombre: "Optativa disciplinar", creditos: 3, semestre: 9 },
+      { nombre: "Laboratorio 2 de ingeniería química, operaciones de transferencia y control de procesos", creditos: 4, semestre: 9 },
+      { nombre: "Ingeniería de procesos", creditos: 4, prerrequisitos: ["Ingeniería de los reactores químicos"], semestre: 9 },
+      { nombre: "Proyecto integrado de ingeniería", creditos: 4, prerrequisitos: ["Estructura y evaluación de proyectos de ingeniería"], semestre: 9 },
     ];
 
-    const contenedor = document.getElementById("contenedor");
+    const estado = JSON.parse(localStorage.getItem("progresoMaterias") || "{}");
 
-    materias.forEach((m, i) => {
-      if (i % 4 === 0) {
-        var div = document.createElement("div");
-        div.className = "semestre";
-        div.innerHTML = `<h2>${Math.floor(i / 4) + 1}° semestre</h2>`;
-        contenedor.appendChild(div);
-      }
-      const parent = contenedor.lastElementChild;
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.id = m.id;
-      checkbox.disabled = m.prerrequisitos.length > 0;
-      const label = document.createElement("label");
-      label.htmlFor = m.id;
-      label.textContent = `${m.nombre} (${m.creditos} créditos)`;
-      const divMateria = document.createElement("div");
-      divMateria.className = "materia";
-      divMateria.appendChild(checkbox);
-      divMateria.appendChild(label);
-      parent.appendChild(divMateria);
-    });
-
-    document.querySelectorAll("input[type='checkbox']").forEach(c => {
-      c.addEventListener("change", () => {
-        materias.forEach(m => {
-          const check = document.getElementById(m.id);
-          if (!check.checked && m.prerrequisitos.length > 0) {
-            const cumplidos = m.prerrequisitos.every(pid => document.getElementById(pid).checked);
-            document.getElementById(m.id).disabled = !cumplidos;
-          }
+    function crearMalla() {
+      const contenedor = document.getElementById("contenedor");
+      contenedor.innerHTML = "";
+      const semestres = [...new Set(materias.map(m => m.semestre))].sort((a,b) => a-b);
+      semestres.forEach(s => {
+        const col = document.createElement("div");
+        col.className = "semestre";
+        const titulo = document.createElement("h3");
+        titulo.textContent = `Semestre ${s}`;
+        col.appendChild(titulo);
+        const delSemestre = materias.filter(m => m.semestre === s);
+        delSemestre.forEach(m => {
+          const div = document.createElement("div");
+          div.className = "materia";
+          div.textContent = m.nombre;
+          if (estado[m.nombre]) div.classList.add("completada");
+          if (!puedeDesbloquear(m)) div.classList.add("bloqueada");
+          div.onclick = () => {
+            estado[m.nombre] = !estado[m.nombre];
+            localStorage.setItem("progresoMaterias", JSON.stringify(estado));
+            crearMalla();
+            actualizarInfo();
+          };
+          div.title = `${m.creditos} créditos` + (m.prerrequisitos ? `\nPrerrequisitos: ${m.prerrequisitos.join(", ")}` : "");
+          col.appendChild(div);
         });
+        contenedor.appendChild(col);
+      });
+      actualizarInfo();
+    }
+
+    function puedeDesbloquear(m) {
+      if (!m.prerrequisitos) return true;
+      return m.prerrequisitos.every(p => estado[p]);
+    }
+
+    function actualizarInfo() {
+      const creditos = materias.filter(m => estado[m.nombre]).reduce((s, m) => s + m.creditos, 0);
+      const total = materias.reduce((s, m) => s + m.creditos, 0);
+      document.getElementById("creditos").textContent = creditos;
+      document.getElementById("progreso").textContent = Math.round(creditos / total * 100) + "%";
+    }
+
+    function toggleModoOscuro() {
+      document.body.classList.toggle("dark-mode");
+    }
+
+    document.getElementById("buscador").addEventListener("input", e => {
+      const texto = e.target.value.toLowerCase();
+      document.querySelectorAll(".materia").forEach(div => {
+        div.style.display = div.textContent.toLowerCase().includes(texto) ? "block" : "none";
       });
     });
+
+    crearMalla();
   </script>
 </body>
 </html>
+
+
+
+
+
+
